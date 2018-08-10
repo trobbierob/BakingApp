@@ -1,7 +1,5 @@
 package services;
 
-import java.util.List;
-
 import model.Recipe;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -20,7 +18,4 @@ public interface WebService {
 
     @GET(FEED)
     Call<Recipe[]> recipes();
-
-    @GET(FEED)
-    Call<List<Recipe>> recipeList();
 }

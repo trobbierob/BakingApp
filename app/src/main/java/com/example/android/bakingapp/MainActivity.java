@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.List;
-
 import model.Recipe;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +15,7 @@ import services.WebService;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = "MAINACTIVITY LOG";
     Button button;
 
     @Override
@@ -33,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 letsBake();
             }
         });
-
-        letsBake();
     }
 
     private void letsBake() {
@@ -58,23 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Recipe[]> call, Throwable t) {
-                Log.i(TAG, "onFailure call: " + call);
-                Log.i(TAG, "onFailure throwable: " + t);
-            }
-        });
-
-        Call<List<Recipe>> callList = webService.recipeList();
-        callList.enqueue(new Callback<List<Recipe>>() {
-            @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                Log.i(TAG, "onResponse response: " + response);
-                Log.i(TAG, "onResponse call: " + call);
-            }
-
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.i(TAG, "onFailure call: " + call);
-                Log.i(TAG, "onFailure throwable: " + t);
+                Log.i(TAG, "onFailure throwable message: " + t);
             }
         });
     }

@@ -1,90 +1,157 @@
+
 package model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Recipe implements Parcelable {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    private String recipeName;
-    private String quantity;
-    private String measure;
-    private String[] ingredients;
-    private String stepId;
-    private String shortDescription;
-    private String description;
-    private String videoUrl;
-    private String thumbnailUrl;
-    private String servingSize;
+import java.util.List;
 
-    public Recipe(String recipeName) {
-        this.recipeName = recipeName;
+public class Recipe implements Parcelable
+{
+
+    @SerializedName("id")
+    @Expose
+    private long id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("ingredients")
+    @Expose
+    private List<Ingredient> ingredients = null;
+    @SerializedName("steps")
+    @Expose
+    private List<Step> steps = null;
+    @SerializedName("servings")
+    @Expose
+    private long servings;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    public final static Parcelable.Creator<Recipe> CREATOR = new Creator<Recipe>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        public Recipe[] newArray(int size) {
+            return (new Recipe[size]);
+        }
+
+    }
+            ;
+
+    protected Recipe(Parcel in) {
+        this.id = ((long) in.readValue((long.class.getClassLoader())));
+        this.name = ((String) in.readValue((String.class.getClassLoader())));
+        in.readList(this.ingredients, (model.Ingredient.class.getClassLoader()));
+        in.readList(this.steps, (model.Step.class.getClassLoader()));
+        this.servings = ((long) in.readValue((long.class.getClassLoader())));
+        this.image = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    public String getRecipeName() {
-        return recipeName;
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Recipe() {
     }
 
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
+    /**
+     *
+     * @param ingredients
+     * @param id
+     * @param servings
+     * @param name
+     * @param image
+     * @param steps
+     */
+    public Recipe(long id, String name, List<Ingredient> ingredients, List<Step> steps, long servings, String image) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.servings = servings;
+        this.image = image;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
+    public long getServings() {
+        return servings;
+    }
+
+    public void setServings(long servings) {
+        this.servings = servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(id);
+        dest.writeValue(name);
+        dest.writeList(ingredients);
+        dest.writeList(steps);
+        dest.writeValue(servings);
+        dest.writeValue(image);
+    }
+
+    public int describeContents() {
+        return  0;
     }
 
     @Override
     public String toString() {
         return "Recipe{" +
-                "recipeName='" + recipeName + '\'' +
-                ", quantity='" + quantity + '\'' +
-                ", measure='" + measure + '\'' +
-                ", ingredients='" + ingredients + '\'' +
-                ", stepId='" + stepId + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", description='" + description + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
-                ", servingSize='" + servingSize + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ingredients=" + ingredients +
+                ", steps=" + steps +
+                ", servings=" + servings +
+                ", image='" + image + '\'' +
                 '}';
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.recipeName);
-        dest.writeString(this.quantity);
-        dest.writeString(this.measure);
-        dest.writeStringArray(this.ingredients);
-        dest.writeString(this.stepId);
-        dest.writeString(this.shortDescription);
-        dest.writeString(this.description);
-        dest.writeString(this.videoUrl);
-        dest.writeString(this.thumbnailUrl);
-        dest.writeString(this.servingSize);
-    }
-
-    protected Recipe(Parcel in) {
-        this.recipeName = in.readString();
-        this.quantity = in.readString();
-        this.measure = in.readString();
-        this.ingredients = in.createStringArray();
-        this.stepId = in.readString();
-        this.shortDescription = in.readString();
-        this.description = in.readString();
-        this.videoUrl = in.readString();
-        this.thumbnailUrl = in.readString();
-        this.servingSize = in.readString();
-    }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel source) {
-            return new Recipe(source);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 }

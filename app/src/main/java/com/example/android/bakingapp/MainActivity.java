@@ -1,8 +1,11 @@
 package com.example.android.bakingapp;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -16,26 +19,40 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        button = (Button) findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                letsBake();
+            }
+        });
+
         letsBake();
     }
 
     private void letsBake() {
-        Log.i(TAG, "Wubba lubba dub dub");
         WebService webService =
                 WebService.retrofit.create(WebService.class);
 
         Call<Recipe[]> call = webService.recipes();
         call.enqueue(new Callback<Recipe[]>() {
             @Override
-            public void onResponse(Call<Recipe[]> call, Response<Recipe[]> response) {
+            public void onResponse(@NonNull Call<Recipe[]> call, @NonNull Response<Recipe[]> response) {
                 if (response.isSuccessful()){
                     Log.i(TAG, "onResponse response: " + response);
                     Log.i(TAG, "onResponse call: " + call);
+
+                    for (Recipe recipe : response.body()){
+                        Log.i(TAG, "Recipe Items: " + recipe.toString());
+                    }
                 }
             }
 

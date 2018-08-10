@@ -13,9 +13,6 @@ public interface WebService {
     String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/";
     String FEED = "topher/2017/May/59121517_baking/baking.json";
 
-    String BASE_URLs = "http://560057.youcanlearnit.net/";
-    String FEEDs = "services/json/itemsfeed.php";
-
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

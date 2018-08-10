@@ -8,7 +8,7 @@ public class Recipe implements Parcelable {
     private String recipeName;
     private String quantity;
     private String measure;
-    private String ingredients;
+    private String[] ingredients;
     private String stepId;
     private String shortDescription;
     private String description;
@@ -20,6 +20,29 @@ public class Recipe implements Parcelable {
         this.recipeName = recipeName;
     }
 
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "recipeName='" + recipeName + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", measure='" + measure + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", stepId='" + stepId + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", servingSize='" + servingSize + '\'' +
+                '}';
+    }
 
     @Override
     public int describeContents() {
@@ -31,7 +54,7 @@ public class Recipe implements Parcelable {
         dest.writeString(this.recipeName);
         dest.writeString(this.quantity);
         dest.writeString(this.measure);
-        dest.writeString(this.ingredients);
+        dest.writeStringArray(this.ingredients);
         dest.writeString(this.stepId);
         dest.writeString(this.shortDescription);
         dest.writeString(this.description);
@@ -44,7 +67,7 @@ public class Recipe implements Parcelable {
         this.recipeName = in.readString();
         this.quantity = in.readString();
         this.measure = in.readString();
-        this.ingredients = in.readString();
+        this.ingredients = in.createStringArray();
         this.stepId = in.readString();
         this.shortDescription = in.readString();
         this.description = in.readString();
@@ -53,7 +76,7 @@ public class Recipe implements Parcelable {
         this.servingSize = in.readString();
     }
 
-    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
         @Override
         public Recipe createFromParcel(Parcel source) {
             return new Recipe(source);

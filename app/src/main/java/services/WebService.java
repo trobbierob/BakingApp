@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface WebService {
 
-    String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/";
+    String BASE_URL = "http://d17h27t6h515a5.cloudfront.net/";
     String FEED = "topher/2017/May/59121517_baking/baking.json";
 
     Retrofit retrofit = new Retrofit.Builder()

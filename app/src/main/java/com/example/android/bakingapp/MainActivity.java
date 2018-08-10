@@ -18,7 +18,6 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-
     Button button;
 
     @Override
@@ -52,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
                     for (Recipe recipe : response.body()){
                         Log.i(TAG, "Recipe Items: " + recipe.toString());
+                        Log.i(TAG, "Recipe Names " + recipe.getName());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<Recipe[]> call, Throwable t) {
-
                 Log.i(TAG, "onFailure call: " + call);
                 Log.i(TAG, "onFailure throwable: " + t);
             }
@@ -74,12 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-
                 Log.i(TAG, "onFailure call: " + call);
                 Log.i(TAG, "onFailure throwable: " + t);
             }
         });
-
-
     }
 }

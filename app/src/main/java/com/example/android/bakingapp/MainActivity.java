@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import model.Recipe;
 import retrofit2.Call;
@@ -16,21 +15,24 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MAINACTIVITY LOG";
-    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        button = (Button) findViewById(R.id.button);
+    public void addRecipes(View view) {
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                letsBake();
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putString(RecipeFragment.RECIPE_KEY, "Passed Message");
+
+        RecipeFragment recipeFragment = new RecipeFragment();
+        recipeFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.recipe_fragment_container, recipeFragment)
+                .commit();
     }
 
     private void letsBake() {
@@ -42,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Recipe[]> call, @NonNull Response<Recipe[]> response) {
                 if (response.isSuccessful()){
-                    Log.i(TAG, "onResponse response: " + response);
-                    Log.i(TAG, "onResponse call: " + call);
-
                     for (Recipe recipe : response.body()){
                         Log.i(TAG, "Recipe Items: " + recipe.toString());
                         Log.i(TAG, "Recipe Names " + recipe.getName());
@@ -58,4 +57,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

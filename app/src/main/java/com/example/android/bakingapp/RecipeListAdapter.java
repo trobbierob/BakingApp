@@ -42,7 +42,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         return mRecipeNames.size();
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder{
+    class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public final TextView recipeNameTV;
         final RecipeListAdapter mAdapter;
@@ -51,6 +51,18 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             super(itemView);
             recipeNameTV = (TextView) itemView.findViewById(R.id.recipe_name_tv);
             this.mAdapter = adapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            // Get the position of the item that was clicked.
+            int mPosition = getLayoutPosition();
+            String element = mRecipeNames.get(mPosition);
+            mRecipeNames.set(mPosition, "Clicked! " + element);
+            // Notify the adapter, that the data has changed so it can
+            // update the RecyclerView to display the data.
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

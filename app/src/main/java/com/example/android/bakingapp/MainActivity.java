@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import model.Recipe;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,20 +17,20 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MAINACTIVITY LOG";
+    //private String[] recipeName;
+    //List<String> recipeName = new ArrayList<>();
+    private ArrayList<String> recipeName = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        letsBake();
     }
 
     public void addRecipes(View view) {
-
-        Bundle bundle = new Bundle();
-        bundle.putString(RecipeFragment.RECIPE_KEY, "Passed Message");
-
-        RecipeFragment recipeFragment = new RecipeFragment();
-        recipeFragment.setArguments(bundle);
+        RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeName);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.recipe_fragment_container, recipeFragment)
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                     for (Recipe recipe : response.body()){
                         Log.i(TAG, "Recipe Items: " + recipe.toString());
                         Log.i(TAG, "Recipe Names " + recipe.getName());
+                        recipeName.add(recipe.getName());
+                        Log.i(TAG, "recipeName ArrayList is " + recipeName);
                     }
                 }
             }
@@ -57,6 +61,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

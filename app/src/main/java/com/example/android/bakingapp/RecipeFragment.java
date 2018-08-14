@@ -28,14 +28,6 @@ public class RecipeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /*public static RecipeFragment newInstance(ArrayList<String> message) {
-        Bundle args = new Bundle();
-        args.putStringArrayList(RecipeFragment.RECIPE_KEY, message);
-        RecipeFragment fragment = new RecipeFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }*/
-
     public static RecipeFragment newInstance(ArrayList<Recipe> message) {
         Bundle args = new Bundle();
         args.putParcelableArrayList(RecipeFragment.RECIPE_KEY, message);
@@ -52,14 +44,6 @@ public class RecipeFragment extends Fragment {
                 false);
 
         Bundle bundle = getArguments();
-        /*if (bundle != null){
-            ArrayList<String> message = bundle.getStringArrayList(RECIPE_KEY);
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recipe_fragment_rv);
-            RecipeListAdapter recipeAdapter = new RecipeListAdapter(getContext(), message);
-            recyclerView.setAdapter(recipeAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        }*/
-
         if (bundle != null){
             ArrayList<Recipe> message = bundle.getParcelableArrayList(RECIPE_KEY);
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recipe_fragment_rv);

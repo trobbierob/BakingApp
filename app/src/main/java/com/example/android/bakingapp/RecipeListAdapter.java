@@ -3,6 +3,7 @@ package com.example.android.bakingapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,8 @@ import model.Recipe;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
     public static final String TAG = "**RECIPE ADAPTER LOG**";
-    private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<String> mRecipeNames;
-
     private ArrayList<Recipe> mRecipeData;
-
-    /*public RecipeListAdapter(Context context, ArrayList<String> mRecipeNames) {
-        mInflater = LayoutInflater.from(context);
-        this.mRecipeNames = mRecipeNames;
-    }*/
 
     public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {
         mInflater = LayoutInflater.from(context);
@@ -42,17 +35,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull RecipeListAdapter.RecipeViewHolder recipeViewHolder,
                                  int position) {
-        /*String mCurrent = mRecipeNames.get(position);
-        recipeViewHolder.recipeNameTV.setText(mCurrent);*/
-
         Recipe currentRecipe = mRecipeData.get(position);
         recipeViewHolder.recipeNameTV.setText(currentRecipe.getName());
-
     }
 
     @Override
     public int getItemCount() {
-        //return mRecipeNames.size();
         return mRecipeData.size();
     }
 
@@ -71,12 +59,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         @Override
         public void onClick(View view) {
             // Get the position of the item that was clicked.
-            /*int mPosition = getLayoutPosition();
-            String element = mRecipeNames.get(mPosition);
-            mRecipeNames.set(mPosition, "Clicked! " + element);
-            // Notify the adapter, that the data has changed so it can
-            // update the RecyclerView to display the data.
-            mAdapter.notifyDataSetChanged();*/
+            int mPosition = getLayoutPosition();
+
+            Log.i(TAG, "Inside the onClick" + mRecipeData.get(mPosition));
+
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

@@ -17,7 +17,6 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "**MAIN ACTIVITY LOG**";
-    private ArrayList<String> recipeName = new ArrayList<String>();
     private ArrayList<Recipe> recipeObjects = new ArrayList<>();
 
     @Override
@@ -27,14 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         letsBake();
     }
-
-    /*public void addRecipes(View view) {
-        RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeName);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.recipe_fragment_container, recipeFragment)
-                .commit();
-    }*/
 
     public void addRecipes(View view) {
         RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeObjects);
@@ -55,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                                    @NonNull Response<Recipe[]> response) {
                 if (response.isSuccessful()){
                     for (Recipe recipe : response.body()){
-                        //recipeName.add(recipe.getName());
                         recipeObjects.add(recipe);
                     }
                 }

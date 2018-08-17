@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Recipe[]> call, Throwable t) {
-                Log.i(TAG, "onFailure throwable message: " + t);
+                Log.i(TAG, getString(R.string.onFailure_throwable) + t);
             }
         });
     }

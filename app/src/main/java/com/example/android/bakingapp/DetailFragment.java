@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import model.Recipe;
 
 
 /**
@@ -13,9 +16,19 @@ import android.view.ViewGroup;
  */
 public class DetailFragment extends Fragment {
 
+    private static final String TAG = "**DETAIL FRAGMENT LOG**";
+    public static final String DETAILS_KEY = "details_key";
 
     public DetailFragment() {
         // Required empty public constructor
+    }
+
+    public static DetailFragment newInstance(Recipe message) {
+        Bundle args = new Bundle();
+        args.putParcelable(DetailFragment.DETAILS_KEY, message);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
@@ -23,7 +36,17 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+        final View view = inflater.inflate(R.layout.fragment_detail, container, false);
+
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            Recipe message = bundle.getParcelable(DETAILS_KEY);
+
+            TextView textView = view.findViewById(R.id.detail_recipe_name);
+            textView.setText(message.getName());
+        }
+
+        return view;
     }
 
 }

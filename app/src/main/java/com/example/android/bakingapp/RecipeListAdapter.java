@@ -1,9 +1,9 @@
 package com.example.android.bakingapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import model.Recipe;
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
     public static final String TAG = "**RECIPE ADAPTER LOG**";
+    public static final String RECIPE_ITEM_KEY = "recipe_item_key";
     private LayoutInflater mInflater;
     private ArrayList<Recipe> mRecipeData;
 
@@ -28,7 +29,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public RecipeListAdapter.RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
                                                                  int i) {
-        View mItemView = mInflater.inflate(R.layout.rv_item, viewGroup, false);
+        View mItemView = mInflater.inflate(R.layout.main_recipe_item, viewGroup, false);
         return new RecipeViewHolder(mItemView, this);
     }
 
@@ -60,10 +61,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-
-            Log.i(TAG, "Inside the onClick" + mRecipeData.get(mPosition));
-
-            mAdapter.notifyDataSetChanged();
+            /**
+             * Intent to send clicked Recipe parcelable
+             */
+            Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
+            detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
+            view.getContext().startActivity(detailIntent);
         }
     }
 }

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup fragmentContainer =
                 findViewById(R.id.detail_fragment_container);
         mTablet = (fragmentContainer != null);
-        
+
         letsBake();
     }
 

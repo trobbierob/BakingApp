@@ -1,6 +1,5 @@
 package com.example.android.bakingapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -43,13 +42,27 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.detail_fragment_container, fragment)
                     .commit();
         } else {
-            Intent intent = new Intent(this, DetailActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, DetailActivity.class);
+            startActivity(intent);*/
         }
     }
 
     public void addRecipes(View view) {
+        //tabletDetector();
+        Log.i(TAG, "mTablet is: " + mTablet);
+
         RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeObjects);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.recipe_fragment_container, recipeFragment)
+                .commit();
+    }
+
+    public void addRecipes2(View view) {
+        //tabletDetector();
+        Log.i(TAG, "mTablet is: " + mTablet);
+
+        RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeObjects, mTablet);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.recipe_fragment_container, recipeFragment)

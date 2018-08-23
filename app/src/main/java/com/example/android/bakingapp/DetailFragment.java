@@ -36,16 +36,17 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        final View view = inflater.inflate(R.layout.fragment_detail, container,
+                false);
 
         Bundle bundle = getArguments();
+
         if (bundle != null){
             Recipe message = bundle.getParcelable(DETAILS_KEY);
 
             TextView textView = view.findViewById(R.id.detail_recipe_name);
             textView.setText(message.getName());
         }
-
         return view;
     }
 

@@ -11,8 +11,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = DetailActivity.class.getSimpleName();
 
-    private Recipe recipe;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +18,14 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra(RecipeListAdapter.RECIPE_ITEM_KEY);
-        Log.i(TAG, "Recipe is " + recipe);
+
+        Log.i(TAG, "Recipe is: " + recipe);
+
+        DetailFragment detailFragment = DetailFragment.newInstance(recipe);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.content_detail_fragment, detailFragment)
+                .commit();
+
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class RecipeFragment extends Fragment {
 
     private Context mContext;
 
+    private boolean mTablet;
+
     public RecipeFragment() {
         // Required empty public constructor
     }
@@ -31,6 +34,16 @@ public class RecipeFragment extends Fragment {
     public static RecipeFragment newInstance(ArrayList<Recipe> message) {
         Bundle args = new Bundle();
         args.putParcelableArrayList(RecipeFragment.RECIPE_KEY, message);
+        RecipeFragment fragment = new RecipeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static RecipeFragment newInstance(ArrayList<Recipe> message, boolean tablet) {
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(RecipeFragment.RECIPE_KEY, message);
+        Log.i(TAG, "tablet in Recipe Fragment is: " + tablet);
+        args.putBoolean("tablet", tablet);
         RecipeFragment fragment = new RecipeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -44,13 +57,26 @@ public class RecipeFragment extends Fragment {
                 false);
 
         Bundle bundle = getArguments();
-        if (bundle != null){
+
+        mTablet = bundle.getBoolean("tablet");
+        Log.i(TAG, "mTablet in Recipe Fragment is: " + mTablet);
+
+        /*if (bundle != null){
             ArrayList<Recipe> message = bundle.getParcelableArrayList(RECIPE_KEY);
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recipe_fragment_rv);
             RecipeListAdapter recipeAdapter = new RecipeListAdapter(getContext(), message);
             recyclerView.setAdapter(recipeAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }*/
+
+        if (bundle != null){
+            ArrayList<Recipe> message = bundle.getParcelableArrayList(RECIPE_KEY);
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recipe_fragment_rv);
+            RecipeListAdapter recipeAdapter = new RecipeListAdapter(getContext(), message, mTablet);
+            recyclerView.setAdapter(recipeAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+
         return view;
     }
 }

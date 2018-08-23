@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public static final String RECIPE_ITEM_KEY = "recipe_item_key";
     private LayoutInflater mInflater;
     private ArrayList<Recipe> mRecipeData;
+    private boolean mTablet;
 
     public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {
         mInflater = LayoutInflater.from(context);
         this.mRecipeData = recipeData;
+    }
+
+    public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData, Boolean orientation) {
+        mInflater = LayoutInflater.from(context);
+        this.mRecipeData = recipeData;
+        this.mTablet = orientation;
     }
 
     @NonNull
@@ -64,9 +72,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             /**
              * Intent to send clicked Recipe parcelable
              */
-            Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
+            /*Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
             detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
-            view.getContext().startActivity(detailIntent);
+            view.getContext().startActivity(detailIntent);*/
+
+            if (mTablet){
+
+            } else {
+                Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
+                detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
+                view.getContext().startActivity(detailIntent);
+            }
+
+            Log.i(TAG, "Recipe List Adapter, mTablet is: " + mTablet);
         }
     }
 }

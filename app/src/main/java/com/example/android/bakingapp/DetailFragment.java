@@ -39,12 +39,12 @@ public class DetailFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_detail, container,
                 false);
 
+        TextView textView = view.findViewById(R.id.detail_recipe_name);
         Bundle bundle = getArguments();
 
         if (bundle != null){
             Recipe message = bundle.getParcelable(DETAILS_KEY);
-
-            TextView textView = view.findViewById(R.id.detail_recipe_name);
+            
             textView.setText(message.getName());
         }
         return view;

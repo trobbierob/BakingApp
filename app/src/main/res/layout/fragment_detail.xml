@@ -11,13 +11,13 @@
         android:id="@+id/detail_recipe_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recipe Name" />
+        tools:text="Recipe Name"/>
 
     <TextView
         android:id="@+id/detail_ingredient_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingredients" />
+        tools:text="Ingredients"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/detail_ingredients_rv"
@@ -28,7 +28,7 @@
         android:id="@+id/detail_steps_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Steps" />
+        tools:text="Steps" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/steps_rv"

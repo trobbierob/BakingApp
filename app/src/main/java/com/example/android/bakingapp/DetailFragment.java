@@ -23,15 +23,6 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DetailFragment newInstance(Recipe message) {
-        Bundle args = new Bundle();
-        args.putParcelable(DetailFragment.DETAILS_KEY, message);
-        DetailFragment fragment = new DetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,5 +40,15 @@ public class DetailFragment extends Fragment {
         }
         return view;
     }
+
+    public static DetailFragment newInstance(Recipe message) {
+        Bundle args = new Bundle();
+        args.putParcelable(DetailFragment.DETAILS_KEY, message);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
 
 }

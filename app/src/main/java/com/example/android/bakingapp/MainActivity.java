@@ -58,17 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void addRecipes2(View view) {
-        //tabletDetector();
-        Log.i(TAG, "mTablet is: " + mTablet);
-
-        RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeObjects, mTablet);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.recipe_fragment_container, recipeFragment)
-                .commit();
-    }
-
     private void letsBake() {
         WebService webService =
                 WebService.retrofit.create(WebService.class);

@@ -3,7 +3,6 @@ package com.example.android.bakingapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {
         mInflater = LayoutInflater.from(context);
         this.mRecipeData = recipeData;
-    }
-
-    public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData, Boolean orientation) {
-        mInflater = LayoutInflater.from(context);
-        this.mRecipeData = recipeData;
-        this.mTablet = orientation;
     }
 
     @NonNull
@@ -68,35 +61,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-            /**
-             * Intent to send clicked Recipe parcelable
-             */
-            /*Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
-            detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
-            view.getContext().startActivity(detailIntent);*/
-
-            /*RecipeFragment fragment = new RecipeFragment();
-            MainActivity activity = new MainActivity();
-            ScreenUtility su = new ScreenUtility((Activity) fragment.getActivity());
-
-            if (su.getDpWidth() > 820) {
-                Log.i(TAG, "Truuuue");
-            } else {
-                Log.i(TAG, "Faaaalse");
-            }*/
-
-
-
-
-            if (mTablet){
-
-            } else {
-                /*Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
-                detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
-                view.getContext().startActivity(detailIntent);*/
-            }
-
-            Log.i(TAG, "Recipe List Adapter, mTablet is: " + mTablet);
         }
     }
 }

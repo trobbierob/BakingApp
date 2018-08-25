@@ -2,11 +2,10 @@ package com.example.android.bakingapp;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -19,43 +18,26 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "**MAIN ACTIVITY LOG**";
-    private ArrayList<Recipe> recipeObjects = new ArrayList<>();
+    private static final ArrayList<Recipe> recipeObjects = new ArrayList<>();
     private boolean mTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ViewGroup fragmentContainer =
-                findViewById(R.id.detail_fragment_container);
-        mTablet = (fragmentContainer != null);
-
         letsBake();
+
+        RecyclerView recyclerView = findViewById(R.id.recipe_list_rv);
+        Log.i(TAG, "Recipe Objects: " + recipeObjects);
+        recyclerView.setAdapter(new RecipeListAdapter(this, recipeObjects));
     }
 
     public void tabletDetector(){
-        if (mTablet) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            DetailFragment fragment = new DetailFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.detail_fragment_container, fragment)
-                    .commit();
-        } else {
-            /*Intent intent = new Intent(this, DetailActivity.class);
-            startActivity(intent);*/
-        }
+
     }
 
     public void addRecipes(View view) {
-        //tabletDetector();
-        Log.i(TAG, "mTablet is: " + mTablet);
 
-        RecipeFragment recipeFragment = RecipeFragment.newInstance(recipeObjects);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.recipe_fragment_container, recipeFragment)
-                .commit();
     }
 
     private void letsBake() {
@@ -71,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Recipe recipe : response.body()){
                         recipeObjects.add(recipe);
                     }
+                    Log.i(TAG, "Recipe Objects in letsBake: " + recipeObjects);
                 }
             }
 

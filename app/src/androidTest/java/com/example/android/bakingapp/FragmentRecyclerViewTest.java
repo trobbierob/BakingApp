@@ -50,7 +50,7 @@ public class FragmentRecyclerViewTest {
                 allOf(withId(R.id.recipe_name_tv), withText("Nutella Pie"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.recipe_fragment_rv),
+                                        withId(R.id.recipe_list_rv),
                                         0),
                                 0),
                         isDisplayed()));
@@ -60,7 +60,7 @@ public class FragmentRecyclerViewTest {
                 allOf(withId(R.id.recipe_name_tv), withText("Brownies"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.recipe_fragment_rv),
+                                        withId(R.id.recipe_list_rv),
                                         1),
                                 0),
                         isDisplayed()));
@@ -70,7 +70,7 @@ public class FragmentRecyclerViewTest {
                 allOf(withId(R.id.recipe_name_tv), withText("Yellow Cake"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.recipe_fragment_rv),
+                                        withId(R.id.recipe_list_rv),
                                         2),
                                 0),
                         isDisplayed()));
@@ -80,7 +80,7 @@ public class FragmentRecyclerViewTest {
                 allOf(withId(R.id.recipe_name_tv), withText("Cheesecake"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(R.id.recipe_fragment_rv),
+                                        withId(R.id.recipe_list_rv),
                                         3),
                                 0),
                         isDisplayed()));

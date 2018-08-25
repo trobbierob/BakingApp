@@ -26,6 +26,6 @@ public class AddFragmentBasicTest {
     @Test
     public void actvityLaunch(){
         onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.recipe_fragment_rv)).check(matches(isDisplayed()));
+        onView(withId(R.id.recipe_list_rv)).check(matches(isDisplayed()));
     }
 }

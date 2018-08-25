@@ -47,8 +47,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public final TextView recipeNameTV;
-        final RecipeListAdapter mAdapter;
+        TextView recipeNameTV;
+        RecipeListAdapter mAdapter;
 
         public RecipeViewHolder(@NonNull View itemView, RecipeListAdapter adapter) {
             super(itemView);
@@ -61,6 +61,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
+
         }
     }
 }

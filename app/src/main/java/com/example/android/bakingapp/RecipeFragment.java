@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import model.Recipe;
+import utilities.ScreenUtility;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +69,15 @@ public class RecipeFragment extends Fragment {
             recyclerView.setAdapter(recipeAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }*/
+
+        RecipeFragment fragment = new RecipeFragment();
+        ScreenUtility su = new ScreenUtility(fragment.getActivity());
+
+        if (su.getDpWidth() > 820) {
+            Log.i(TAG, "Truuuue");
+        } else {
+            Log.i(TAG, "Faaaalse");
+        }
 
         if (bundle != null){
             ArrayList<Recipe> message = bundle.getParcelableArrayList(RECIPE_KEY);

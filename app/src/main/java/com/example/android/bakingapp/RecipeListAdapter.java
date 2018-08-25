@@ -1,7 +1,6 @@
 package com.example.android.bakingapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,12 +75,25 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
             view.getContext().startActivity(detailIntent);*/
 
+            /*RecipeFragment fragment = new RecipeFragment();
+            MainActivity activity = new MainActivity();
+            ScreenUtility su = new ScreenUtility((Activity) fragment.getActivity());
+
+            if (su.getDpWidth() > 820) {
+                Log.i(TAG, "Truuuue");
+            } else {
+                Log.i(TAG, "Faaaalse");
+            }*/
+
+
+
+
             if (mTablet){
 
             } else {
-                Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
+                /*Intent detailIntent = new Intent(view.getContext(), DetailActivity.class);
                 detailIntent.putExtra(RECIPE_ITEM_KEY, mRecipeData.get(mPosition));
-                view.getContext().startActivity(detailIntent);
+                view.getContext().startActivity(detailIntent);*/
             }
 
             Log.i(TAG, "Recipe List Adapter, mTablet is: " + mTablet);

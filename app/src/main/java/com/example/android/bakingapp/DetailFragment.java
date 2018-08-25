@@ -44,7 +44,7 @@ public class DetailFragment extends Fragment {
 
         if (bundle != null){
             Recipe message = bundle.getParcelable(DETAILS_KEY);
-            
+
             textView.setText(message.getName());
         }
         return view;

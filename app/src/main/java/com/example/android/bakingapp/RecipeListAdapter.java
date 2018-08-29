@@ -16,8 +16,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     public static final String TAG = "**RECIPE ADAPTER LOG**";
     public static final String RECIPE_ITEM_KEY = "recipe_item_key";
+
+
     private LayoutInflater mInflater;
     private ArrayList<Recipe> mRecipeData;
+
+    private Context context;
     private boolean mTablet;
 
     public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {

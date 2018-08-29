@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-
 import model.Recipe;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,18 +16,19 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "**MAIN ACTIVITY LOG**";
-    private static final ArrayList<Recipe> recipeObjects = new ArrayList<>();
     private boolean mTablet;
+
+    RecipeListAdapter mAdapter;
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        letsBake();
 
-        RecyclerView recyclerView = findViewById(R.id.recipe_list_rv);
-        Log.i(TAG, "Recipe Objects: " + recipeObjects);
-        recyclerView.setAdapter(new RecipeListAdapter(this, recipeObjects));
+        mRecyclerView = findViewById(R.id.recipe_list_rv);
+
+        runOven();
     }
 
     public void tabletDetector(){
@@ -37,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addRecipes(View view) {
-
+        //runOven();
     }
 
-    private void letsBake() {
+    private void runOven() {
         WebService webService =
                 WebService.retrofit.create(WebService.class);
 
@@ -51,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
                                    @NonNull Response<Recipe[]> response) {
                 if (response.isSuccessful()){
                     for (Recipe recipe : response.body()){
-                        Log.i(TAG, "Recipe in WebService: " + recipe);
-                        recipeObjects.add(recipe);
+                        StateManager.getInstance().setRecipeObjects(recipe);
                     }
-                    Log.i(TAG, "Recipe Objects in letsBake: " + recipeObjects);
+                    mAdapter = new RecipeListAdapter(MainActivity.this, StateManager.getInstance().getRecipeObjects());
+                    mRecyclerView.setAdapter(mAdapter);
                 }
             }
 

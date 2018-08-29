@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                                    @NonNull Response<Recipe[]> response) {
                 if (response.isSuccessful()){
                     for (Recipe recipe : response.body()){
+                        Log.i(TAG, "Recipe in WebService: " + recipe);
                         recipeObjects.add(recipe);
                     }
                     Log.i(TAG, "Recipe Objects in letsBake: " + recipeObjects);

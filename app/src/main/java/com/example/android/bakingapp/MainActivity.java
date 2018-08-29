@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recipe_list_rv);
 
+        /**
+         * If there are no recipes listed, get them
+         * If there are recipes persist the data during an orientation change
+         */
         if (StateManager.getInstance().getRecipeObjects().isEmpty()){
             runOven();
         } else {
@@ -38,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         savedInstanceState.getParcelableArrayList("recipes");
-
-        //mAdapter = new RecipeListAdapter(MainActivity.this, StateManager.getInstance().getRecipeObjects());
         mAdapter = new RecipeListAdapter(MainActivity.this, savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         //runOven();
     }
 
+    /**
+     * This is the runOven method which makes a call to the WebService interface
+     * to retrieve JSON data of the recipe lists.
+     */
     private void runOven() {
         WebService webService =
                 WebService.retrofit.create(WebService.class);

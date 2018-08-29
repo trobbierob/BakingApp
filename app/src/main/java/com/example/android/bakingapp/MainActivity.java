@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         if (StateManager.getInstance().getRecipeObjects().isEmpty()){
             runOven();
         } else {
-            savedInstanceState.putParcelableArrayList("recipes", StateManager.getInstance().getRecipeObjects());
+            savedInstanceState.putParcelableArrayList("recipes",
+                    StateManager.getInstance().getRecipeObjects());
         }
     }
 
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         savedInstanceState.getParcelableArrayList("recipes");
-        mAdapter = new RecipeListAdapter(MainActivity.this, savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
+        mAdapter = new RecipeListAdapter(MainActivity.this,
+                savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     for (Recipe recipe : response.body()){
                         StateManager.getInstance().setRecipeObjects(recipe);
                     }
-                    mAdapter = new RecipeListAdapter(MainActivity.this, StateManager.getInstance().getRecipeObjects());
+                    mAdapter = new RecipeListAdapter(MainActivity.this,
+                            StateManager.getInstance().getRecipeObjects());
                     mRecyclerView.setAdapter(mAdapter);
                 }
             }

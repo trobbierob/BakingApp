@@ -25,10 +25,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mRecyclerView = findViewById(R.id.recipe_list_rv);
 
-        runOven();
+        if (StateManager.getInstance().getRecipeObjects().isEmpty()){
+            runOven();
+        } else {
+            savedInstanceState.putParcelableArrayList("recipes", StateManager.getInstance().getRecipeObjects());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.getParcelableArrayList("recipes");
+
+        //mAdapter = new RecipeListAdapter(MainActivity.this, StateManager.getInstance().getRecipeObjects());
+        mAdapter = new RecipeListAdapter(MainActivity.this, savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public void tabletDetector(){

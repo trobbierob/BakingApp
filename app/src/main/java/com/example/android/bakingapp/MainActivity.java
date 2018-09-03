@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
 import model.Recipe;
 import retrofit2.Call;
@@ -50,10 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void tabletDetector(){
 
-    }
-
-    public void addRecipes(View view) {
-        //runOven();
     }
 
     /**

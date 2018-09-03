@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +66,22 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-            Intent detailActivityIntent = new Intent(view.getContext(), RecipeDetailActivity.class);
-            detailActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
-            view.getContext().startActivity(detailActivityIntent);
+
+            if (mTablet){
+                RecipeDetailFragment fragment =
+                        RecipeDetailFragment.newInstance(mRecipeData.get(mPosition));
+                ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_detail_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            } else {
+                Intent detailActivityIntent = new Intent(view.getContext(), RecipeDetailActivity.class);
+                detailActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
+                view.getContext().startActivity(detailActivityIntent);
+            }
+
+
         }
     }
 }

@@ -15,7 +15,7 @@ import services.WebService;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "**MAIN ACTIVITY LOG**";
-    private boolean mTablet;
+    private boolean mTablet = false;
 
     RecipeListAdapter mAdapter;
     RecyclerView mRecyclerView;
@@ -30,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
          * If there are no recipes listed, get them
          * If there are recipes persist the data during an orientation change
          **/
+
+        if (findViewById(R.id.recipe_detail_container) != null){
+            mTablet = true;
+            Log.i(TAG, "Tablet view is good? " + mTablet);
+        } else {
+            Log.i(TAG, "Not in tablet mode");
+        }
+
+
+
         if (StateManager.getInstance().getRecipeObjects().isEmpty()){
             runOven();
         } else {

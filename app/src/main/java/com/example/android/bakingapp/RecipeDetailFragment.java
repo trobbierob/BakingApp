@@ -28,28 +28,29 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        mRecipe = savedInstanceState.getParcelable("details_recipe");
-        Log.i(TAG, "Recipe in Fragment is..." + mRecipe);
-
-        /*if (savedInstanceState.getArguments().containsKey("details_recipe")) {
-            mRecipe = getArguments().getParcelable("details_recipe");
-            Log.i(TAG, "Recipe in Fragment is..." + mRecipe);
+        Bundle bundle = getArguments();
+        /*if (bundle != null){
+            mRecipe = bundle.getParcelable("details_recipe");
+            Log.i(TAG, "Recipe in onCreate is..." + mRecipe);
         }*/
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+        View rootView = inflater.inflate(R.layout.content_recipe_detail, container, false);
 
-        //TODO: Show detail info
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            mRecipe = bundle.getParcelable("details_recipe");
+            Log.i(TAG, "Recipe in onCreateView bundle is..." + mRecipe);
+        }
+
         if (mRecipe != null){
-            ((TextView) rootView.findViewById(R.id.fragment_recipe_detail)).setText(mRecipe.getName());
-            Log.i(TAG, "Recipe in Fragment is..." + mRecipe);
+            Log.i(TAG, "Recipe in Fragment in IF Statement..." + mRecipe);
+            ((TextView) rootView.findViewById(R.id.detail_recipe_name)).setText(mRecipe.getName());
+            ((TextView) rootView.findViewById(R.id.detail_recipe_id)).setText("Recipe #" + String.valueOf(mRecipe.getId()) + ":");
         } else {
             Log.i(TAG, "Recipe in Fragment is... nada" + mRecipe);
         }
@@ -59,9 +60,6 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
 
     public static RecipeDetailFragment newInstance(Recipe recipe) {
         RecipeDetailFragment fragment = new RecipeDetailFragment();
-
-        Log.i(TAG, "Recipe in Fragment is..." + recipe);
-
         Bundle args = new Bundle();
         args.putParcelable("details_recipe", recipe);
         fragment.setArguments(args);

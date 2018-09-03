@@ -34,7 +34,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
             RecipeDetailFragment fragment =
                     RecipeDetailFragment.newInstance(recipe);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.recipe_detail_container, fragment);
+                    .add(R.id.recipe_detail_container, fragment)
+            .commit();
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

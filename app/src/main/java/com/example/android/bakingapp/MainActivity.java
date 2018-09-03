@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "**MAIN ACTIVITY LOG**";
     private boolean mTablet = false;
 
-    RecipeListAdapter mAdapter;
-    RecyclerView mRecyclerView;
+    private RecipeListAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,20 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recipe_list_rv);
 
+        if (findViewById(R.id.recipe_detail_container) != null){
+            mTablet = true;
+        } else {
+            Log.i(TAG, "Not in tablet mode.");
+        }
+
         /**
          * If there are no recipes listed, get them
          * If there are recipes persist the data during an orientation change
          **/
-
-        if (findViewById(R.id.recipe_detail_container) != null){
-            mTablet = true;
-            Log.i(TAG, "Tablet view is good? " + mTablet);
-        } else {
-            Log.i(TAG, "Not in tablet mode");
-        }
-
-
-
         if (StateManager.getInstance().getRecipeObjects().isEmpty()){
             runOven();
         } else {
@@ -53,12 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         savedInstanceState.getParcelableArrayList("recipes");
         mAdapter = new RecipeListAdapter(MainActivity.this,
-                savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
+                savedInstanceState.<Recipe>getParcelableArrayList("recipes"), mTablet);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    public void tabletDetector(){
-
     }
 
     /**
@@ -79,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         StateManager.getInstance().setRecipeObjects(recipe);
                     }
                     mAdapter = new RecipeListAdapter(MainActivity.this,
-                            StateManager.getInstance().getRecipeObjects());
+                            StateManager.getInstance().getRecipeObjects(), mTablet);
                     mRecyclerView.setAdapter(mAdapter);
                 }
             }

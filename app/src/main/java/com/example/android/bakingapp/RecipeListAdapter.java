@@ -17,17 +17,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     public static final String TAG = "**RECIPE ADAPTER LOG**";
     public static final String RECIPE_ITEM_KEY = "recipe_item_key";
-
-
     private LayoutInflater mInflater;
     private ArrayList<Recipe> mRecipeData;
 
-    private Context context;
+    private Context mContext;
     private boolean mTablet;
 
-    public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {
+    public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData, boolean tablet) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         this.mRecipeData = recipeData;
+        this.mTablet = tablet;
     }
 
     @NonNull
@@ -70,7 +70,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             if (mTablet){
                 RecipeDetailFragment fragment =
                         RecipeDetailFragment.newInstance(mRecipeData.get(mPosition));
-                ((MainActivity) context).getSupportFragmentManager().beginTransaction()
+                ((MainActivity) mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.recipe_detail_container, fragment)
                         .addToBackStack(null)
                         .commit();
@@ -80,8 +80,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
                 detailActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
                 view.getContext().startActivity(detailActivityIntent);
             }
-
-
         }
     }
 }

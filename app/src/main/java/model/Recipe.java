@@ -8,7 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Recipe implements Parcelable
 {
@@ -22,10 +21,10 @@ public class Recipe implements Parcelable
     @SerializedName("ingredients")
     @Expose
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
-    //private List<Ingredient> ingredients = new ArrayList<>();
     @SerializedName("steps")
     @Expose
-    private List<Step> steps = new ArrayList<>();
+    /*private List<Step> steps = new ArrayList<>();*/
+    private ArrayList<Step> steps = new ArrayList<>();
     @SerializedName("servings")
     @Expose
     private long servings;
@@ -74,7 +73,17 @@ public class Recipe implements Parcelable
      * @param steps
      */
 
-    public Recipe(long id, String name, ArrayList<Ingredient> ingredients, List<Step> steps, long servings, String image) {
+    /*public Recipe(long id, String name, ArrayList<Ingredient> ingredients, List<Step> steps, long servings, String image) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.servings = servings;
+        this.image = image;
+    }*/
+
+    public Recipe(long id, String name, ArrayList<Ingredient> ingredients, ArrayList<Step> steps, long servings, String image) {
         super();
         this.id = id;
         this.name = name;
@@ -83,6 +92,7 @@ public class Recipe implements Parcelable
         this.servings = servings;
         this.image = image;
     }
+
 
     public long getId() {
         return id;
@@ -108,11 +118,19 @@ public class Recipe implements Parcelable
         this.ingredients = ingredients;
     }
 
-    public List<Step> getSteps() {
+    /*public List<Step> getSteps() {
+        return steps;
+    }*/
+
+    public ArrayList<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    /*public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }*/
+
+    public void setSteps(ArrayList<Step> steps) {
         this.steps = steps;
     }
 

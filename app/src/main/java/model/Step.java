@@ -39,8 +39,7 @@ public class Step implements Parcelable
             return (new Step[size]);
         }
 
-    }
-            ;
+    };
 
     protected Step(Parcel in) {
         this.id = ((long) in.readValue((long.class.getClassLoader())));

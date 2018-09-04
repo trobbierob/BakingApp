@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
 
     public Recipe mRecipe;
     private IngredientListAdapter mAdapter;
+    private StepListAdapter sAdapter;
     private RecyclerView mRecyclerView;
+    private RecyclerView sRecyclerView;
 
     public RecipeDetailFragment() {
         // Required empty public constructor
@@ -39,6 +42,7 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_recipe_detail, container, false);
         mRecyclerView = rootView.findViewById(R.id.detail_ingredients_rv);
+        sRecyclerView = rootView.findViewById(R.id.detail_steps_rv);
 
         Bundle bundle = getArguments();
         if (bundle != null){
@@ -51,6 +55,15 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
             mAdapter = new IngredientListAdapter(rootView.getContext(), mRecipe.getIngredients());
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setLayoutManager(layoutManager);
+
+
+            LinearLayoutManager sLayoutManager = new LinearLayoutManager(rootView.getContext());
+            sLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            sAdapter = new StepListAdapter(rootView.getContext(), mRecipe.getSteps());
+            sRecyclerView.setAdapter(sAdapter);
+            sRecyclerView.setLayoutManager(sLayoutManager);
+
+            Log.i(TAG, "Steps are: " + mRecipe.getSteps());
         }
 
         return rootView;

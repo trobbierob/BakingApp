@@ -9,6 +9,17 @@
     tools:showIn="@layout/activity_recipe_detail">
 
     <TextView
+        android:id="@+id/detail_recipe_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Recipe ID" />
+
+    <TextView
         android:id="@+id/detail_recipe_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,14 +31,50 @@
         tools:text="Recipe Name" />
 
     <TextView
-        android:id="@+id/detail_recipe_id"
+        android:id="@+id/detail_ingredients_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Recipe ID" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_recipe_id"
+        tools:text="Ingredients" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_ingredients_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_ingredients_title">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_steps_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_steps_title">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/detail_steps_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_ingredients_rv"
+        tools:text="Steps" />
+
 
 </android.support.constraint.ConstraintLayout>

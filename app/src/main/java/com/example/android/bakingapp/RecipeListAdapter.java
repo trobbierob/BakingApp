@@ -32,15 +32,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @NonNull
     @Override
-    public RecipeListAdapter.RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
-                                                                 int i) {
+    public RecipeListAdapter.RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View mItemView = mInflater.inflate(R.layout.main_recipe_item, viewGroup, false);
         return new RecipeViewHolder(mItemView, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeListAdapter.RecipeViewHolder recipeViewHolder,
-                                 int position) {
+    public void onBindViewHolder(@NonNull RecipeListAdapter.RecipeViewHolder recipeViewHolder, int position) {
         Recipe currentRecipe = mRecipeData.get(position);
         recipeViewHolder.recipeNameTV.setText(currentRecipe.getName());
     }
@@ -57,7 +55,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         public RecipeViewHolder(@NonNull View itemView, RecipeListAdapter adapter) {
             super(itemView);
-            recipeNameTV = (TextView) itemView.findViewById(R.id.recipe_name_tv);
+            recipeNameTV = itemView.findViewById(R.id.recipe_name_tv);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }

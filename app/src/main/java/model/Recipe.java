@@ -21,7 +21,8 @@ public class Recipe implements Parcelable
     private String name;
     @SerializedName("ingredients")
     @Expose
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private ArrayList<Ingredient> ingredients = new ArrayList<>();
+    //private List<Ingredient> ingredients = new ArrayList<>();
     @SerializedName("steps")
     @Expose
     private List<Step> steps = new ArrayList<>();
@@ -45,8 +46,7 @@ public class Recipe implements Parcelable
             return (new Recipe[size]);
         }
 
-    }
-            ;
+    };
 
     protected Recipe(Parcel in) {
         this.id = ((long) in.readValue((long.class.getClassLoader())));
@@ -73,7 +73,8 @@ public class Recipe implements Parcelable
      * @param image
      * @param steps
      */
-    public Recipe(long id, String name, List<Ingredient> ingredients, List<Step> steps, long servings, String image) {
+
+    public Recipe(long id, String name, ArrayList<Ingredient> ingredients, List<Step> steps, long servings, String image) {
         super();
         this.id = id;
         this.name = name;
@@ -99,11 +100,11 @@ public class Recipe implements Parcelable
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

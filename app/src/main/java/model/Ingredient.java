@@ -33,8 +33,7 @@ public class Ingredient implements Parcelable
             return (new Ingredient[size]);
         }
 
-    }
-            ;
+    };
 
     protected Ingredient(Parcel in) {
         this.quantity = ((double) in.readValue((double.class.getClassLoader())));

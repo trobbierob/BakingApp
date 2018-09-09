@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import adapters.RecipeListAdapter;
 import model.Recipe;
 import retrofit2.Call;
 import retrofit2.Callback;

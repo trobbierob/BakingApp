@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import adapters.IngredientListAdapter;
+import adapters.StepListAdapter;
 import model.Recipe;
 import model.Step;
 

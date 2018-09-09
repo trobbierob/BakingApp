@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import model.Recipe;
+import model.Step;
 
 
 /**
@@ -44,6 +45,8 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         mRecyclerView = rootView.findViewById(R.id.detail_ingredients_rv);
         sRecyclerView = rootView.findViewById(R.id.detail_steps_rv);
 
+
+
         Bundle bundle = getArguments();
         if (bundle != null){
             mRecipe = bundle.getParcelable("details_recipe");
@@ -63,6 +66,9 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
             sRecyclerView.setAdapter(sAdapter);
             sRecyclerView.setLayoutManager(sLayoutManager);
 
+            Step step = new Step();
+            step.getVideoURL();
+            Log.i(TAG, "Step url is: " + step.getVideoURL());
             Log.i(TAG, "Steps are: " + mRecipe.getSteps());
         }
 

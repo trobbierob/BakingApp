@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -36,16 +35,6 @@ public class FragmentRecyclerViewTest {
      */
     @Test
     public void fragmentRecyclerViewTest() {
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.button), withText("Add Recipes"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-
         ViewInteraction textView = onView(
                 allOf(withId(R.id.recipe_name_tv), withText("Nutella Pie"),
                         childAtPosition(

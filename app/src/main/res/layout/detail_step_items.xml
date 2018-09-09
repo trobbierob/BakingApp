@@ -24,6 +24,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/step_number"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,18 +37,23 @@
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_number" />
 
-    <TextView
+    <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/step_video_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        app:surface_type="texture_view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_description" />
 

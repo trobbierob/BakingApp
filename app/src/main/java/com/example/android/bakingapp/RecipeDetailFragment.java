@@ -14,7 +14,6 @@ import android.widget.TextView;
 import adapters.IngredientListAdapter;
 import adapters.StepListAdapter;
 import model.Recipe;
-import model.Step;
 
 
 /**
@@ -52,6 +51,8 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             mRecipe = bundle.getParcelable("details_recipe");
+            Log.i(TAG, "mRecipe is: " + mRecipe.getSteps());
+
             ((TextView) rootView.findViewById(R.id.detail_recipe_name)).setText(mRecipe.getName());
             ((TextView) rootView.findViewById(R.id.detail_recipe_id)).setText("Recipe #" + String.valueOf(mRecipe.getId()) + ":");
 
@@ -68,19 +69,19 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
             sRecyclerView.setAdapter(sAdapter);
             sRecyclerView.setLayoutManager(sLayoutManager);
 
-            Step step = new Step();
-            step.getVideoURL();
-            Log.i(TAG, "Step url is: " + step.getVideoURL());
             Log.i(TAG, "Steps are: " + mRecipe.getSteps());
+        } else {
+            throw new AssertionError();
         }
 
         return rootView;
     }
 
     public static RecipeDetailFragment newInstance(Recipe recipe) {
-        RecipeDetailFragment fragment = new RecipeDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("details_recipe", recipe);
+
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
         return fragment;
     }

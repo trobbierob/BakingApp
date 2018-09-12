@@ -70,6 +70,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
 
+            /*Intent stepActivityIntent = new Intent(view.getContext(), RecipeStepActivity.class);
+            stepActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
+            view.getContext().startActivity(stepActivityIntent);*/
+
             if (mTablet){
                 RecipeDetailFragment fragment =
                         RecipeDetailFragment.newInstance(mRecipeData.get(mPosition));

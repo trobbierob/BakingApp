@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
          * If there are no recipes listed, get them
          * If there are recipes persist the data during an orientation change
          **/
-        if (StateManager.getInstance().getRecipeObjects().isEmpty()){
+        if (StateManager.getInstance().getRecipeObjects().isEmpty()) {
             runOven();
         } else {
             savedInstanceState.putParcelableArrayList("recipes",

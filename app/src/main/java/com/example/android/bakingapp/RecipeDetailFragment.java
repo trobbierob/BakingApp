@@ -46,8 +46,6 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         mRecyclerView = rootView.findViewById(R.id.detail_ingredients_rv);
         sRecyclerView = rootView.findViewById(R.id.detail_steps_rv);
 
-
-
         Bundle bundle = getArguments();
         if (bundle != null){
             mRecipe = bundle.getParcelable("details_recipe");
@@ -61,7 +59,6 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
             mAdapter = new IngredientListAdapter(rootView.getContext(), mRecipe.getIngredients());
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setLayoutManager(layoutManager);
-
 
             LinearLayoutManager sLayoutManager = new LinearLayoutManager(rootView.getContext());
             sLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -85,5 +82,4 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
 }

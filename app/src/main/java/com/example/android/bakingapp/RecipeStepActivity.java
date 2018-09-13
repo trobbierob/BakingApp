@@ -49,10 +49,6 @@ public class RecipeStepActivity extends AppCompatActivity {
         StepListAdapter sAdapter = new StepListAdapter(this, recipe.getSteps());
         stepsRv.setAdapter(sAdapter);
         stepsRv.setLayoutManager(layoutManager2);
-
-
-
-
     }
 
     @Override

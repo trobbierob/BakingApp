@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.bakingapp.MainActivity;
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.RecipeDetailActivity;
-import com.example.android.bakingapp.RecipeDetailFragment;
+import com.example.android.bakingapp.RecipeStepActivity;
 
 import java.util.ArrayList;
 
@@ -33,6 +31,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         mInflater = LayoutInflater.from(context);
         this.mRecipeData = recipeData;
         this.mTablet = tablet;
+    }
+
+    public RecipeListAdapter(Context context, ArrayList<Recipe> recipeData) {
+        mContext = context;
+        mInflater = LayoutInflater.from(context);
+        this.mRecipeData = recipeData;
     }
 
     @NonNull
@@ -70,11 +74,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
 
-            /*Intent stepActivityIntent = new Intent(view.getContext(), RecipeStepActivity.class);
+            Intent stepActivityIntent = new Intent(view.getContext(), RecipeStepActivity.class);
             stepActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
-            view.getContext().startActivity(stepActivityIntent);*/
+            view.getContext().startActivity(stepActivityIntent);
 
-            if (mTablet){
+            /*if (mTablet){
                 RecipeDetailFragment fragment =
                         RecipeDetailFragment.newInstance(mRecipeData.get(mPosition));
                 ((MainActivity) mContext).getSupportFragmentManager().beginTransaction()
@@ -86,7 +90,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
                 Intent detailActivityIntent = new Intent(view.getContext(), RecipeDetailActivity.class);
                 detailActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
                 view.getContext().startActivity(detailActivityIntent);
-            }
+            }*/
         }
     }
 }

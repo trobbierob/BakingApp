@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.StepDetailActivity;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,8 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     private LayoutInflater mInflater;
     private ArrayList<Step> mStepData;
     private Context mContext;
+    //Step currentStep;
+    String currentDescription, currentVideoUrl, currentThumbnail;
 
     public StepListAdapter(Context context, ArrayList<Step> stepData) {
         mInflater = LayoutInflater.from(context);
@@ -35,10 +39,14 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         return new StepViewHolder(mItemView, this);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Step item);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull StepListAdapter.StepViewHolder stepViewHolder, int position) {
         Step currentStep = mStepData.get(position);
-        stepViewHolder.stepId.setText(String.valueOf(currentStep.getId()+1));
+        stepViewHolder.stepId.setText(String.valueOf(currentStep.getId()));
         stepViewHolder.stepDescription.setText(currentStep.getShortDescription());
     }
 
@@ -47,7 +55,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         return mStepData.size();
     }
 
-    public class StepViewHolder extends RecyclerView.ViewHolder {
+    public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         StepListAdapter mAdapter;
         TextView stepId, stepDescription;
@@ -57,6 +65,20 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
             stepId = itemView.findViewById(R.id.step_id);
             stepDescription = itemView.findViewById(R.id.step_description);
             this.mAdapter = adapter;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int mPositon = getLayoutPosition();
+
+            Intent stepDetailActivityIntent = new Intent(view.getContext(), StepDetailActivity.class);
+            stepDetailActivityIntent.putExtra("current_description", mStepData.get(mPositon).getDescription());
+            stepDetailActivityIntent.putExtra("current_thumbnail", mStepData.get(mPositon).getThumbnailURL());
+            stepDetailActivityIntent.putExtra("current_video_url", mStepData.get(mPositon).getVideoURL());
+            view.getContext().startActivity(stepDetailActivityIntent);
+
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

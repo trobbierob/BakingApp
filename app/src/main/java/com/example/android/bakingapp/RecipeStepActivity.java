@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -45,7 +44,6 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
         layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
-        Log.i(TAG, "Steps are: " + recipe.getSteps());
         StepListAdapter sAdapter = new StepListAdapter(this, recipe.getSteps());
         stepsRv.setAdapter(sAdapter);
         stepsRv.setLayoutManager(layoutManager2);

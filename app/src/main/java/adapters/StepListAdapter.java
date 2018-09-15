@@ -22,8 +22,6 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     private LayoutInflater mInflater;
     private ArrayList<Step> mStepData;
     private Context mContext;
-    //Step currentStep;
-    String currentDescription, currentVideoUrl, currentThumbnail;
 
     public StepListAdapter(Context context, ArrayList<Step> stepData) {
         mInflater = LayoutInflater.from(context);
@@ -34,13 +32,8 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     @NonNull
     @Override
     public StepListAdapter.StepViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        //View mItemView = mInflater.inflate(R.layout.detail_step_items, viewGroup, false);
         View mItemView = mInflater.inflate(R.layout.step_items, viewGroup, false);
         return new StepViewHolder(mItemView, this);
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Step item);
     }
 
     @Override
@@ -71,13 +64,9 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         @Override
         public void onClick(View view) {
             int mPositon = getLayoutPosition();
-
             Intent stepDetailActivityIntent = new Intent(view.getContext(), StepDetailActivity.class);
-            stepDetailActivityIntent.putExtra("current_description", mStepData.get(mPositon).getDescription());
-            stepDetailActivityIntent.putExtra("current_thumbnail", mStepData.get(mPositon).getThumbnailURL());
-            stepDetailActivityIntent.putExtra("current_video_url", mStepData.get(mPositon).getVideoURL());
+            stepDetailActivityIntent.putExtra("current_step_data", mStepData.get(mPositon));
             view.getContext().startActivity(stepDetailActivityIntent);
-
             mAdapter.notifyDataSetChanged();
         }
     }

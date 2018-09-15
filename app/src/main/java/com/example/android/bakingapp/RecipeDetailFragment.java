@@ -3,7 +3,6 @@ package com.example.android.bakingapp;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import adapters.IngredientListAdapter;
 import adapters.StepListAdapter;
 import model.Recipe;
+import model.Step;
 
 
 /**
@@ -24,6 +24,7 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
     private static final String TAG = "**DETAIL ACTIVITY LOG**";
 
     public Recipe mRecipe;
+    public Step mStep;
     private IngredientListAdapter mAdapter;
     private StepListAdapter sAdapter;
     private RecyclerView mRecyclerView;
@@ -43,30 +44,18 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_recipe_detail, container, false);
-        mRecyclerView = rootView.findViewById(R.id.detail_ingredients_rv);
-        sRecyclerView = rootView.findViewById(R.id.detail_steps_rv);
+
+
 
         Bundle bundle = getArguments();
         if (bundle != null){
-            mRecipe = bundle.getParcelable("details_recipe");
-            Log.i(TAG, "mRecipe is: " + mRecipe.getSteps());
 
-            ((TextView) rootView.findViewById(R.id.detail_recipe_name)).setText(mRecipe.getName());
-            ((TextView) rootView.findViewById(R.id.detail_recipe_id)).setText("Recipe #" + String.valueOf(mRecipe.getId()) + ":");
+            mStep = bundle.getParcelable("details_step");
+            ((TextView) rootView.findViewById(R.id.step_description)).setText(String.valueOf(mStep.getDescription()));
+            Log.i(TAG, "mStep is: " + mStep);
+            Log.i(TAG, "mStep is: " + mStep.getDescription());
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            mAdapter = new IngredientListAdapter(rootView.getContext(), mRecipe.getIngredients());
-            mRecyclerView.setAdapter(mAdapter);
-            mRecyclerView.setLayoutManager(layoutManager);
 
-            LinearLayoutManager sLayoutManager = new LinearLayoutManager(rootView.getContext());
-            sLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            sAdapter = new StepListAdapter(rootView.getContext(), mRecipe.getSteps());
-            sRecyclerView.setAdapter(sAdapter);
-            sRecyclerView.setLayoutManager(sLayoutManager);
-
-            Log.i(TAG, "Steps are: " + mRecipe.getSteps());
         } else {
             throw new AssertionError();
         }
@@ -74,10 +63,9 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
         return rootView;
     }
 
-    public static RecipeDetailFragment newInstance(Recipe recipe) {
+    public static RecipeDetailFragment newInstance(Step step) {
         Bundle args = new Bundle();
-        args.putParcelable("details_recipe", recipe);
-
+        args.putParcelable("details_step", step);
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(args);
         return fragment;

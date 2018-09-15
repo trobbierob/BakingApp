@@ -7,12 +7,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import model.Recipe;
+import model.Step;
 
 public class RecipeDetailActivity extends AppCompatActivity {
+
+    public static final String TAG = "**RECI DETAIL LOG**";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +30,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        Recipe recipe = intent.getParcelableExtra("current_recipe");
+        Step step = intent.getParcelableExtra("current_step_data");
+        Log.i(TAG, "Step is: " + step);
+        if (step != null) {
+            Log.i(TAG, "Step is: " + step.getVideoURL());
+        }
 
         if (savedInstanceState == null){
             RecipeDetailFragment fragment =
-                    RecipeDetailFragment.newInstance(recipe);
+                    RecipeDetailFragment.newInstance(step);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.recipe_detail_container, fragment)
                     .commit();
@@ -51,8 +58,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            /*NavUtils.navigateUpTo(this,
-                    new Intent(this, MainActivity.class));*/
             onBackPressed();
             return true;
         }

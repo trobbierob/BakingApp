@@ -78,6 +78,11 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             stepActivityIntent.putExtra("current_recipe", mRecipeData.get(mPosition));
             view.getContext().startActivity(stepActivityIntent);
 
+            ////////////
+            ////////////
+            ////////////
+            ////////////
+
             /*if (mTablet){
                 RecipeDetailFragment fragment =
                         RecipeDetailFragment.newInstance(mRecipeData.get(mPosition));

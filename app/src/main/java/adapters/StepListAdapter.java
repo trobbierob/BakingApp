@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.StepDetailActivity;
+import com.example.android.bakingapp.RecipeDetailActivity;
+import com.example.android.bakingapp.RecipeDetailFragment;
+import com.example.android.bakingapp.RecipeStepActivity;
 
 import java.util.ArrayList;
 
@@ -22,11 +24,19 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     private LayoutInflater mInflater;
     private ArrayList<Step> mStepData;
     private Context mContext;
+    private boolean mTablet;
 
     public StepListAdapter(Context context, ArrayList<Step> stepData) {
         mInflater = LayoutInflater.from(context);
         this.mStepData = stepData;
         this.mContext = context;
+    }
+
+    public StepListAdapter(Context context, ArrayList<Step> stepData, boolean tablet) {
+        mInflater = LayoutInflater.from(context);
+        this.mStepData = stepData;
+        this.mContext = context;
+        this.mTablet = tablet;
     }
 
     @NonNull
@@ -39,7 +49,7 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     @Override
     public void onBindViewHolder(@NonNull StepListAdapter.StepViewHolder stepViewHolder, int position) {
         Step currentStep = mStepData.get(position);
-        stepViewHolder.stepId.setText(String.valueOf(currentStep.getId()));
+        stepViewHolder.stepId.setText(String.valueOf(String.valueOf(currentStep.getId()+1)));
         stepViewHolder.stepDescription.setText(currentStep.getShortDescription());
     }
 
@@ -63,10 +73,26 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
 
         @Override
         public void onClick(View view) {
-            int mPositon = getLayoutPosition();
-            Intent stepDetailActivityIntent = new Intent(view.getContext(), StepDetailActivity.class);
-            stepDetailActivityIntent.putExtra("current_step_data", mStepData.get(mPositon));
-            view.getContext().startActivity(stepDetailActivityIntent);
+            int mPosition = getLayoutPosition();
+            /*Intent stepDetailActivityIntent = new Intent(view.getContext(), StepDetailActivity.class);
+            stepDetailActivityIntent.putExtra("current_step_data", mStepData.get(mPosition));
+            view.getContext().startActivity(stepDetailActivityIntent);*/
+
+
+            if (mTablet){
+                RecipeDetailFragment fragment =
+                        RecipeDetailFragment.newInstance(mStepData.get(mPosition));
+                ((RecipeStepActivity) mContext).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_detail_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            } else {
+                Intent detailActivityIntent = new Intent(view.getContext(), RecipeDetailActivity.class);
+                detailActivityIntent.putExtra("current_step_data", mStepData.get(mPosition));
+                view.getContext().startActivity(detailActivityIntent);
+            }
+
             mAdapter.notifyDataSetChanged();
         }
     }

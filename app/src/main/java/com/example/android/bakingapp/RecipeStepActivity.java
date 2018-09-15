@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import model.Recipe;
 public class RecipeStepActivity extends AppCompatActivity {
 
     private static final String TAG = "**RESTEP ACTIVITY LOG**";
+    private boolean mTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,13 @@ public class RecipeStepActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        if (findViewById(R.id.recipe_detail_container) != null){
+            mTablet = true;
+            Log.i(TAG, "In tablet mode.");
+        } else {
+            Log.i(TAG, "Not in tablet mode.");
         }
 
         Intent intent = getIntent();
@@ -44,7 +53,7 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
         layoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
-        StepListAdapter sAdapter = new StepListAdapter(this, recipe.getSteps());
+        StepListAdapter sAdapter = new StepListAdapter(this, recipe.getSteps(), mTablet);
         stepsRv.setAdapter(sAdapter);
         stepsRv.setLayoutManager(layoutManager2);
     }

@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recipe_list_rv);
 
-        if (findViewById(R.id.recipe_detail_container) != null){
+        /*if (findViewById(R.id.recipe_detail_container) != null){
             mTablet = true;
         } else {
             Log.i(TAG, "Not in tablet mode.");
-        }
+        }*/
 
         /**
          * If there are no recipes listed, get them
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         savedInstanceState.getParcelableArrayList("recipes");
         mAdapter = new RecipeListAdapter(MainActivity.this,
-                savedInstanceState.<Recipe>getParcelableArrayList("recipes"), mTablet);
+                savedInstanceState.<Recipe>getParcelableArrayList("recipes"));
         mRecyclerView.setAdapter(mAdapter);
     }
 

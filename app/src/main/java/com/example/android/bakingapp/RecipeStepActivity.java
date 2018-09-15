@@ -31,7 +31,6 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         if (findViewById(R.id.recipe_detail_container) != null){
             mTablet = true;
-            Log.i(TAG, "In tablet mode.");
         } else {
             Log.i(TAG, "Not in tablet mode.");
         }

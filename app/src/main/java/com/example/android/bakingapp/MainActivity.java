@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recipe_list_rv);
 
-        /*if (findViewById(R.id.recipe_detail_container) != null){
-            mTablet = true;
-        } else {
-            Log.i(TAG, "Not in tablet mode.");
-        }*/
-
         /**
          * If there are no recipes listed, get them
          * If there are recipes persist the data during an orientation change

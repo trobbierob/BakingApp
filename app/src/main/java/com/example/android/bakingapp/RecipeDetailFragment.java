@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
@@ -33,9 +31,6 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
 
     private static final String TAG = "**DETAIL ACTIVITY LOG**";
     public Step mStep;
-
-    // bandwidth meter to measure and estimate bandwidth
-    private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
 
     private SimpleExoPlayer player;
     private PlayerView playerView;
@@ -66,18 +61,13 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_recipe_detail, container, false);
-
         playerView = rootView.findViewById(R.id.playerView);
 
         Bundle bundle = getArguments();
         if (bundle != null){
-
             mStep = bundle.getParcelable("details_step");
             ((TextView) rootView.findViewById(R.id.step_description)).setText(String.valueOf(mStep.getDescription()));
             initializePlayer();
-            Log.i(TAG, "mStep is: " + mStep);
-            Log.i(TAG, "mStep is: " + mStep.getDescription());
-
         } else {
             throw new AssertionError();
         }
@@ -90,8 +80,8 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
                 new DefaultTrackSelector(), new DefaultLoadControl());
 
         playerView.setPlayer(player);
-
         player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentWindow, playbackPosition);
 
         Uri uri = Uri.parse(mStep.getVideoURL());
         MediaSource mediaSource = buildMediaSource(uri);
@@ -156,6 +146,5 @@ public class RecipeDetailFragment extends android.support.v4.app.Fragment {
             player = null;
         }
     }
-
 
 }

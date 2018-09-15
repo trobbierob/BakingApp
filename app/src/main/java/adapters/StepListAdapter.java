@@ -74,11 +74,6 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         @Override
         public void onClick(View view) {
             int mPosition = getLayoutPosition();
-            /*Intent stepDetailActivityIntent = new Intent(view.getContext(), StepDetailActivity.class);
-            stepDetailActivityIntent.putExtra("current_step_data", mStepData.get(mPosition));
-            view.getContext().startActivity(stepDetailActivityIntent);*/
-
-
             if (mTablet){
                 RecipeDetailFragment fragment =
                         RecipeDetailFragment.newInstance(mStepData.get(mPosition));
@@ -92,7 +87,6 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
                 detailActivityIntent.putExtra("current_step_data", mStepData.get(mPosition));
                 view.getContext().startActivity(detailActivityIntent);
             }
-
             mAdapter.notifyDataSetChanged();
         }
     }

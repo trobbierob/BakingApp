@@ -1,7 +1,11 @@
 package com.example.android.bakingapp;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private RecipeListAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
+    WidgetProvider wp;
+
+    private static final String ACTION_CUSTOM_BROADCAST =
+            "ACTION_CUSTOM_BROADCAST";
+
+    private WidgetProvider mReceiver = new WidgetProvider();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
             savedInstanceState.putParcelableArrayList("recipes",
                     StateManager.getInstance().getRecipeObjects());
         }
+
+
+        wp = new WidgetProvider();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        registerReceiver(wp, filter);
+
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(mReceiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        //unregisterReceiver(wp);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+        super.onDestroy();
     }
 
     @Override
@@ -65,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     for (Recipe recipe : response.body()){
                         StateManager.getInstance().setRecipeObjects(recipe);
                     }
+
+                    sendCustomBroadcast();
+
                     mAdapter = new RecipeListAdapter(MainActivity.this,
                             StateManager.getInstance().getRecipeObjects(), mTablet);
                     mRecyclerView.setAdapter(mAdapter);
@@ -76,5 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, getString(R.string.onFailure_throwable) + t);
             }
         });
+    }
+
+    private void sendCustomBroadcast() {
+
+        Intent customBroadcast = new Intent(getApplicationContext(), WidgetProvider.class);
+        customBroadcast.putExtra("facts","b");
+        sendBroadcast(customBroadcast);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(customBroadcast);
+
     }
 }

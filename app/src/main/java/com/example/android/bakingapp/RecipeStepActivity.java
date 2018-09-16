@@ -1,5 +1,7 @@
 package com.example.android.bakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -43,6 +45,29 @@ public class RecipeStepActivity extends AppCompatActivity {
         RecyclerView stepsRv = (RecyclerView) findViewById(R.id.detail_steps_rv);
 
         recipeName.setText(recipe.getName());
+
+
+        //List<String> itemNames = new ArrayList<>();
+        //List<String> itemNames = {"Android", "iPhone",""};
+        /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
+                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
+                "Android", "iPhone", "WindowsMobile" };
+
+        ListView listView = (ListView) findViewById(R.id.widget_listview);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, values);
+        Log.i(TAG, "Not in tablet mode." + values);
+        listView.setAdapter(adapter);*/
+
+        Intent intent1 = new Intent(this, WidgetProvider.class);
+        //Log.i(TAG, "Get ingredients is: " + recipe.getIngredients());
+        intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent1.putExtra("widgetextra", recipe.getIngredients());
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent1);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -46,23 +46,8 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         recipeName.setText(recipe.getName());
 
-
-        //List<String> itemNames = new ArrayList<>();
-        //List<String> itemNames = {"Android", "iPhone",""};
-        /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
-
-        ListView listView = (ListView) findViewById(R.id.widget_listview);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, values);
-        Log.i(TAG, "Not in tablet mode." + values);
-        listView.setAdapter(adapter);*/
-
+        //Testing passing information to widget
         Intent intent1 = new Intent(this, WidgetProvider.class);
-        //Log.i(TAG, "Get ingredients is: " + recipe.getIngredients());
         intent1.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         intent1.putExtra("widgetextra", recipe.getIngredients());
         int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetProvider.class));

@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                     StateManager.getInstance().getRecipeObjects());
         }
 
-
         wp = new WidgetProvider();
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
@@ -57,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mReceiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
-
-
     }
 
     @Override
@@ -111,11 +108,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendCustomBroadcast() {
-
         Intent customBroadcast = new Intent(getApplicationContext(), WidgetProvider.class);
         customBroadcast.putExtra("facts","b");
         sendBroadcast(customBroadcast);
         LocalBroadcastManager.getInstance(this).sendBroadcast(customBroadcast);
-
     }
 }

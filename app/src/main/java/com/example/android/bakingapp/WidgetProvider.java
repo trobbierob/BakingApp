@@ -16,19 +16,14 @@ public class WidgetProvider extends AppWidgetProvider {
 
     Ingredient ingredient = new Ingredient();
 
-    String state;
-
     private static final String ACTION_CUSTOM_BROADCAST =
             "ACTION_CUSTOM_BROADCAST";
-
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        //intent.getExtras().get("facts");
         Log.i(TAG, "Action: " + intent.getAction());
-
         Log.i(TAG, "Action: " + intent.getExtras().get("facts"));
     }
 
@@ -40,10 +35,6 @@ public class WidgetProvider extends AppWidgetProvider {
         Log.i(TAG, "onUpdate");
 
         String ingredientTitle = "Ingredients";
-
-        Ingredient ingredient = new Ingredient();
-
-        Log.i(TAG, "onUpdate" + ingredient.getIngredient());
 
         for (int widgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(
@@ -59,9 +50,6 @@ public class WidgetProvider extends AppWidgetProvider {
             remoteViews.setOnClickPendingIntent(R.id.button, pendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
-
         }
-
     }
-
 }
